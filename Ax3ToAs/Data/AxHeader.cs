@@ -106,9 +106,9 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data
 		internal uint LabelSize	{ get { return data[9]; } }
 		internal uint LabelCount	{ get { return data[9] / (int)HeaderDataSize.Label; } }
 		internal uint LabelEnd	{ get { return LabelStart + LabelSize; } }
-		//internal uint UnknownStart	{ get { return data[10]; } }
-		//internal uint UnknownSize	{ get { return data[11]; } }
-		//internal uint UnknownEnd	{ get { return UnknownStart + UnknownSize; } }
+		internal uint DebugStart	{ get { return data[10]; } }
+		internal uint DebugSize { get { return data[11]; } }
+		internal uint DebugEnd { get { return DebugStart + DebugSize; } }
 		internal uint DllStart	{ get { return data[12]; } }
 		internal uint DllSize		{ get { return data[13]; } }
 		internal uint DllCount	{ get { return data[13] / (int)HeaderDataSize.Dll; } }

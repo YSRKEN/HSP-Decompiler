@@ -15,26 +15,31 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data.Primitive
 
 	internal sealed class GlobalVariablePrimitive : VariablePrimitive
 	{
-		private GlobalVariablePrimitive() { }
+        readonly string varName;
+
+        private GlobalVariablePrimitive() { }
 		internal GlobalVariablePrimitive(PrimitiveTokenDataSet dataSet)
 			: base(dataSet)
 		{
-		}
+            varName = dataSet.Parent.GetVariableName(Value);
+        }
 
 		public override string ToString()
 		{
-			StringBuilder bld = new StringBuilder("var");
+            if (varName != null)
+                return varName;
+            StringBuilder bld = new StringBuilder("var");
 			bld.Append("_");
 			bld.Append(Value.ToString());
 			return bld.ToString();
 		}
-		public static string ToString(int value)
-		{
-			StringBuilder bld = new StringBuilder("var");
-			bld.Append("_");
-			bld.Append(value.ToString());
-			return bld.ToString();
-		}
+		//public static string ToString(int value)
+		//{
+  //          StringBuilder bld = new StringBuilder("var");
+		//	bld.Append("_");
+		//	bld.Append(value.ToString());
+		//	return bld.ToString();
+		//}
 	}
 
 	internal sealed class ParameterPrimitive : VariablePrimitive

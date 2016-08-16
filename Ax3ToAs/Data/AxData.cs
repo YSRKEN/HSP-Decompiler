@@ -17,8 +17,9 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data
 		List<PlugIn> plugIns = new List<PlugIn>();
 		Runtime runtime = null;
 		List<Function> modules = new List<Function>();
+        List<string> variableName = new List<string>();
 
-		internal List<Function> Modules
+        internal List<Function> Modules
 		{
 			get { return modules; }
 		}
@@ -121,7 +122,17 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data
 			return functionParams[index];
 		}
 
-		internal Cmd AddCmd(int pluginIndex, int methodIndex)
+        internal string GetVariableName(int index)
+        {
+            if (index < 0)
+                return null;
+            if (index >= variableName.Count)
+                return null;
+            return variableName[index];
+        }
+
+
+        internal Cmd AddCmd(int pluginIndex, int methodIndex)
 		{
 			if (pluginIndex < 0)
 				return null;
@@ -343,6 +354,7 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data
 			}
 			RenameFunctions(dictionary);
 
+            ReadDebugInfo();
 		}
 
 
@@ -462,5 +474,33 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data
 			}
 			return;
 		}
+
+        private bool ReadDebugInfo()
+        {
+            int var_no = 0;
+            for (uint i = 0; i < header.DebugSize; i++)
+            {
+                long offset = seekOrigin + header.DebugStart + i;
+                reader.BaseStream.Seek(offset, SeekOrigin.Begin);
+
+                switch (reader.ReadByte())
+                {
+                    case 252:
+                        i += 2;
+                        break;
+                    case 253:
+                        int literalOffset = reader.ReadByte() ^ (reader.ReadByte() << 8) ^ (reader.ReadByte() << 16);
+                        variableName.Add(ReadStringLiteral(literalOffset));
+                        i += 5;
+                        break;
+                    case 254:
+                        i += 5;
+                        break;
+                    case 255:
+                        return true;
+                }
+            }
+            return false;
+        }
 	}
 }
