@@ -1,4 +1,5 @@
-#HSP3用辞書。deHSP.exeの動作に必須
+#HSP33.3用辞書。deHSP.exeの動作に必須
+
 #Keys,,Values,,
 #TypeCode,ValueCode,Name,Type,ExtraFlag
 $Code,,,,
@@ -211,6 +212,17 @@ $Code,,,,
 0x0F,0x000E,dup,HspFunction,,
 0x0F,0x000F,dupptr,HspFunction,,
 0x0F,0x001A,mcall,McallStatement,,
+#3.3追加データ
+0x08,0x002A,split,HspFunction
+0x09,0x0038,gradf,HspFunction
+0x09,0x0039,objimage,HspFunction
+0x09,0x003A,objskip,HspFunction
+0x09,0x003B,objenable,HspFunction
+0x09,0x003C,celload,HspFunction
+0x09,0x003D,celdiv,HspFunction
+0x09,0x003E,celput,HspFunction
+0x0D,0x0105,strtrim,HspFunction
+#3.3追加終わり
 #,0x100,,{,Symbol,
 #,0x100,,},Symbol,RemoveTab
 #,0x101,,#deffunc,Preprocessor,
