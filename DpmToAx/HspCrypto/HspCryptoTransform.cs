@@ -1,9 +1,12 @@
 #if AllowDecryption
 
 using System;
+using System.IO; // 追加
 using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
+using KttK.HspDecompiler.Ax2ToAs;  // 追加
+using KttK.HspDecompiler.Ax3ToAs;  // 追加
 namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 {
 	class HspCryptoTransform
@@ -48,14 +51,14 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 			return plain;
 		}
 
-		internal static HspCryptoTransform CrackEncryption(byte[] encrypted)
+		internal static HspCryptoTransform CrackEncryption(byte[] encrypted, Hsp3Dictionary dictionary)
 		{
 			byte[] plain3 = new byte[4];
 			plain3[0] = 0x48;//H
 			plain3[1] = 0x53;//S
 			plain3[2] = 0x50;//P
 			plain3[3] = 0x33;//3
-			HspCryptoTransform hsp3crypto = CrackEncryption(plain3, encrypted);
+			HspCryptoTransform hsp3crypto = CrackEncryption(plain3, encrypted, dictionary);
 			if (hsp3crypto != null)
 				return hsp3crypto;
 			byte[] plain2 = new byte[4];
@@ -63,12 +66,12 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 			plain2[1] = 0x53;//S
 			plain2[2] = 0x50;//P
 			plain2[3] = 0x32;//2
-			HspCryptoTransform hsp2crypto = CrackEncryption(plain2, encrypted);
+			HspCryptoTransform hsp2crypto = CrackEncryption(plain2, encrypted, dictionary);
 			return hsp2crypto;
 
 		}
 
-		internal static HspCryptoTransform CrackEncryption(byte[] plain, byte[] encrypted)
+		internal static HspCryptoTransform CrackEncryption(byte[] plain, byte[] encrypted, Hsp3Dictionary dictionary)
 		{
 			int count = Math.Min(plain.Length, encrypted.Length);
 			if (count < 2)
@@ -108,8 +111,32 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 						break;
 					}
 				}
-				if (ok)
-					transformList.Add(xoradd);
+				if(ok) {
+					AbstractAxDecoder decoder = null;
+
+					if(plain[3] == 0x32) {
+						decoder = new Ax2Decoder();
+					} else {
+						Ax3Decoder decoder3 = new Ax3Decoder();
+						decoder3.Dictionary = dictionary;
+						decoder = decoder3;
+					}
+
+					HspCryptoTransform decryptor = new HspCryptoTransform();
+					decryptor.xorAdd = xoradd;
+					byte[] buffer = (byte[])encrypted.Clone();
+					buffer = decryptor.Decryption(buffer);
+
+					MemoryStream stream = new MemoryStream(buffer);
+					BinaryReader reader = new BinaryReader(stream, Encoding.GetEncoding("SHIFT-JIS"));
+
+					try {
+						decoder.Decode(reader);
+						transformList.Add(xoradd);
+					} catch(Exception e) {
+						Console.WriteLine(e);
+					}
+				}
 			}
 			//候補が2つ以上ならアルゴリズムに問題アリ。
 			if (transformList.Count > 1)
