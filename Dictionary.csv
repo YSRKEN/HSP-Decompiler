@@ -1,4 +1,4 @@
-#HSP33.3用辞書。deHSP.exeの動作に必須
+#HSP Ver.3.5beta4用辞書。HSPdecom.exeの動作に必須
 
 #Keys,,Values,,
 #TypeCode,ValueCode,Name,Type,ExtraFlag
@@ -257,6 +257,10 @@ $Code,,,,
 0x0D,0x0012,getease,HspFunction
 0x0D,0x0013,notefind,HspFunction
 0x0D,0x018B,geteasef,HspFunction
+0x11,0x0104,cnvatos,HspFunction
+0x11,0x000C,cnvstoa,HspFunction
+0x09,0x005D,gmulcolor,HspFunction
+0x0E,0x0000,system,HspFunction
 #---
 #,0x100,,{,Symbol,
 #,0x100,,},Symbol,RemoveTab
