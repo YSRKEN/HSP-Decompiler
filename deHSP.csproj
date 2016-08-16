@@ -1,0 +1,171 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{284E8391-8E39-43DE-BCB9-E23452CF48A4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KttK.HspDecompiler</RootNamespace>
+    <AssemblyName>deHSP</AssemblyName>
+    <ApplicationIcon>Dialog\deHSP3.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbstractAxDecoder.cs" />
+    <Compile Include="Ax2ToAs\Ax2Decoder.cs" />
+    <Compile Include="Ax3ToAs\Ax3Decoder.cs" />
+    <Compile Include="Ax3ToAs\Data\Analyzer\HspLogicalLineException.cs" />
+    <Compile Include="Ax3ToAs\Data\AxData.cs" />
+    <Compile Include="Ax3ToAs\Data\AxHeader.cs" />
+    <Compile Include="Ax3ToAs\Data\Analyzer\CodeTokenFactory.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\Command.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\CommentLine.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\EndOfModule.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\LabelDeclaration.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\McallStatement.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\OnEventStatement.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\OnStatement.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\ScoopEnd.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\UnknownLine.cs" />
+    <Compile Include="Ax3ToAs\Data\Analyzer\LogicalLineFactory.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\Cmd.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\FunctionPrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\HspFunctionPrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\IfStatementPrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\LiteralPrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\OperandPrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\OperatorPrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\UnknownPrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Primitive\VariablePrimitive.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\ArgumentToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\Assignment.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\ExpressionTermToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\ExpressionToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\FunctionToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Line\IfStatement.cs" />
+    <Compile Include="Ax3ToAs\Data\LogicalLine.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\LiteralToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\OperandToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\OperatorToken.cs" />
+    <Compile Include="Ax3ToAs\Data\PrimitiveToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Token.cs" />
+    <Compile Include="Ax3ToAs\Data\Analyzer\TokenCollection.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\SubExpressionToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\UnknownToken.cs" />
+    <Compile Include="Ax3ToAs\Data\Token\VariableToken.cs" />
+    <Compile Include="Ax3ToAs\Data\LexicalAnalyzer.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\Function.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\Label.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\Param.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\PlugIn.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\Preprocessor.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\Runtime.cs" />
+    <Compile Include="Ax3ToAs\Data\PP\Usedll.cs" />
+    <Compile Include="Ax3ToAs\Data\SyntacticAnalyzer.cs" />
+    <Compile Include="Ax2ToAs\Data\AxData.cs" />
+    <Compile Include="Ax2ToAs\Data\Header.cs" />
+    <Compile Include="Ax2ToAs\Data\Label.cs" />
+    <Compile Include="Ax2ToAs\Data\ST_Deffunc.cs" />
+    <Compile Include="Ax2ToAs\Data\ST_Dll.cs" />
+    <Compile Include="Ax2ToAs\Data\ST_Func.cs" />
+    <Compile Include="Ax2ToAs\Data\ST_Module.cs" />
+    <Compile Include="Ax2ToAs\Data\Token.cs" />
+    <Compile Include="HspConsole.cs" />
+    <Compile Include="Ax3ToAs\Hsp3Dictionary.cs" />
+    <Compile Include="Ax3ToAs\Dictionary\HspDictionaryKey.cs" />
+    <Compile Include="Ax3ToAs\Dictionary\HspDictionaryValue.cs" />
+    <Compile Include="DpmToAx\Win32ExeHeader.cs" />
+    <Compile Include="ExeToDpm\Unexe.cs" />
+    <Compile Include="HspDecoderException.cs" />
+    <Compile Include="Ax3ToAs\HspEnums.cs" />
+    <Compile Include="DpmToAx\DpmFileState.cs" />
+    <Compile Include="DpmToAx\HspCrypto\HspCryptoTransform.cs" />
+    <Compile Include="DpmToAx\HspCrypto\XorAddTransform.cs" />
+    <Compile Include="Dialog\deHspDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialog\deHspDialog.Designer.cs">
+      <DependentUpon>deHspDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HspDecoder.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Dialog\deHspDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>deHspDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialog\AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="DpmToAx\Undpm.cs" />
+    <Compile Include="Dialog\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Ax3ToAs\Dictionary\DicParser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dialog\deHSP3.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
