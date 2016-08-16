@@ -89,27 +89,31 @@ namespace KttK.HspDecompiler.DpmToAx.HspCrypto
 			if ((andByte != 0x00) || (orByte != 0xFF))
 				throw new Exception("平文の情報が足りません");
 
-			List<XorAddTransform> transformList = new List<XorAddTransform>(0x80);
-			for (int i = 0; i < 0x80; i++)
+			List<XorAddTransform> transformList = new List<XorAddTransform>();
+			//deHSP100　総当りテスト。
+			for (int i = 0; i < 0x100; i++)
 			{
 				XorAddTransform xoradd;
-				xoradd.AddByte = (byte)i;
-				xoradd.XorByte = (byte)(XorAddTransform.Dif(encrypted[0], (byte)i) ^ difBuffer[0]);
-				transformList.Add(xoradd);
-			}
-			for (int index = 1; index < count; index++)
-			{
-				for (int i = 0; i < transformList.Count; i++)
+				bool ok = true;
+				byte add = (byte)(i & 0x7F);
+				xoradd.XorSum = (i >= 0x80);
+				xoradd.AddByte = add;
+				xoradd.XorByte = XorAddTransform.GetXorByte(add, difBuffer[0], encrypted[0], xoradd.XorSum);
+				//チェック
+				for (int index = 1; index < count; index++)
 				{
-					XorAddTransform tempXorAdd = transformList[i];
-					if (encrypted[index] != tempXorAdd.Encode(difBuffer[index]))
+					if (encrypted[index] != xoradd.Encode(difBuffer[index]))
 					{
-						transformList.RemoveAt(i);
-						i--;
+						ok = false;
+						break;
 					}
 				}
+				if (ok)
+					transformList.Add(xoradd);
 			}
-
+			//候補が2つ以上ならアルゴリズムに問題アリ。
+			if (transformList.Count > 1)
+				throw new Exception("復号器の異常");
 			if (transformList.Count == 1)
 			{
 				HspCryptoTransform ret = new HspCryptoTransform();

@@ -65,8 +65,9 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data.Line
 			builder.Append(var.ToString());
 			builder.Append("->");
 			builder.Append(exp.ToString());
+			//deHSP1.20のバグ修正。expとargの間にカンマを入れないように修正。
 			if(arg != null)
-				builder.Append(arg.ToString());
+				builder.Append(arg.ToString(true));
 
 			return builder.ToString();
 		}

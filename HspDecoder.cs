@@ -59,7 +59,11 @@ namespace KttK.HspDecompiler
 				if (file.IsEncrypted)
 				{
 					itemParams[1] = "有";
-					encryptCount++;
+#if AllowDecryption
+					//deHSP100 start.axは暗号ファイルに数えないことにする
+					if (!file.FileName.Equals("start.ax", StringComparison.OrdinalIgnoreCase))
+#endif
+						encryptCount++;
 				}
 				else
 					itemParams[1] = "－";
@@ -68,15 +72,12 @@ namespace KttK.HspDecompiler
 				dpmFileListView.Items.Add(new ListViewItem(itemParams));
 			}
 			Thread.Sleep(0);
-#if AllowDecryption
-#else
 			if ((fileCount - encryptCount) <= 0)
 			{
 				MessageBox.Show("すべてのファイルが暗号化されています", fileCount.ToString() + "ファイル中、" + encryptCount.ToString() + "ファイルが暗号化されています。", MessageBoxButtons.OK);
 				global::KttK.HspDecompiler.HspConsole.Write("展開中断");
 				return;
 			}
-#endif
 			if (encryptCount > 0)
 			{
 				DialogResult result = MessageBox.Show("暗号化されたファイルがあります。" + Environment.NewLine + "暗号化されたファイルを無視して展開を続けますか？", fileCount.ToString() + "ファイル中、" + encryptCount.ToString() + "ファイルが暗号化されています。", MessageBoxButtons.YesNo);
@@ -105,7 +106,7 @@ namespace KttK.HspDecompiler
 				if (file.IsEncrypted)
 				{
 #if AllowDecryption
-					if (file.FileName != "start.ax")
+					if (!file.FileName.Equals("start.ax", StringComparison.OrdinalIgnoreCase))
 #endif
 					{
 						global::KttK.HspDecompiler.HspConsole.Write(file.FileName + "は暗号化されています");

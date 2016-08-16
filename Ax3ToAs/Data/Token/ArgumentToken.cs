@@ -35,8 +35,12 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data.Token
 			}
 		}
 
-
 		public override string ToString()
+		{
+			return ToString(false);
+		}
+
+		public string ToString(bool mcall)
 		{
 			StringBuilder builder = new StringBuilder();
 			if (hasBrackets)
@@ -48,7 +52,7 @@ namespace KttK.HspDecompiler.Ax3ToAs.Data.Token
 			int i = 0;
 			foreach (ExpressionToken exp in exps)
 			{
-				if ((i != 0)||(firstArgIsNull))
+				if ((i != 0)|| (firstArgIsNull && !mcall))
 					builder.Append(", ");
 				i++;
 				builder.Append(exp.ToString());

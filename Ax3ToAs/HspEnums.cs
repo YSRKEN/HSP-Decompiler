@@ -6,21 +6,28 @@ namespace KttK.HspDecompiler.Ax3ToAs
 {
 	public enum HspCodeType
 	{
-		NONE = 0x00,
-		Operator = 0xFF,
-		Symbol = 0xFE,
-		Variable = 0x01,
-		String = 0x02,
-		Double = 0x03,
-		Integer = 0x04,
-		Param = 0x05,
-		Label = 0x07,
-		HspFunction = 0x08,
-		IfStatement = 0x0B,
-		UserFunction = 0x0C,
-		DllFunction = 0x10,
-		ComFunction = 0x11,
-		PlugInFunction = 0x12,
+		NONE = 0x00,//    #define TYPE_MARK 0
+		Operator = 0xFF,//    #define TYPE_MARK 0
+		Symbol = 0xFE,//    #define TYPE_MARK 0
+		Variable = 0x01,//#define TYPE_VAR 1
+		String = 0x02,//#define TYPE_STRING 2
+		Double = 0x03,//#define TYPE_DNUM 3
+		Integer = 0x04,//#define TYPE_INUM 4
+		Param = 0x05,//#define TYPE_STRUCT 5
+		//#define TYPE_XLABEL 6
+		Label = 0x07,//#define TYPE_LABEL 7
+		HspFunction = 0x08,//#define TYPE_INTCMD 8
+		//#define TYPE_EXTCMD 9
+		//#define TYPE_EXTSYSVAR 10
+
+		IfStatement = 0x0B,//#define TYPE_CMPCMD 11
+		UserFunction = 0x0C,//#define TYPE_MODCMD 12
+		//#define TYPE_INTFUNC 13
+		//#define TYPE_SYSVAR 14
+		//#define TYPE_PROGCMD 15
+		DllFunction = 0x10,//#define TYPE_DLLFUNC 16
+		ComFunction = 0x11,//#define TYPE_DLLCTRL 17
+		PlugInFunction = 0x12,//#define TYPE_USERDEF 18
 
 
 		OnEventStatement = 0x20,

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("HSP逆コンパイラ")]//プログラムの概要
-[assembly: AssemblyDescription("HSP逆コンパイラ 1.20")]//詳細な説明
+[assembly: AssemblyDescription("HSP逆コンパイラ")]//詳細な説明
 //[assembly: AssemblyConfiguration("")]
 //[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("HSP逆コンパイラ")]//正式名
-[assembly: AssemblyCopyright("Copyright (C) 2006- きつつき")]
+[assembly: AssemblyCopyright("")]
 //[assembly: AssemblyTrademark("")]//商標
 [assembly: AssemblyCulture("")]//実行ファイルなら常に""
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.2.0.0")]
-//[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+//[assembly: AssemblyFileVersion("1.0.0.0")]
